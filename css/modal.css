@@ -27,6 +27,7 @@ body {
 .c_modal.hide .c_modal-overlay,
 .c_modal.hide .c_modal-window {
   opacity: 1;
+  z-index: 200;
 }
 
 .c_modal-overlay, .c_modal-window {
@@ -89,4 +90,18 @@ body {
 
 .c_modal-footer button:not(:last-child) {
   margin-right: 5px;
+}
+
+/*//////////////*/
+.card-img-top {
+  height: 250px;
+}
+
+.height-200 {
+  height: 220px;
+}
+
+.container {
+  position: relative;
+  z-index: 50;
 }

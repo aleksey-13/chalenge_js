@@ -28,8 +28,6 @@ function _createModal(options) {
     content = "",
     width = 400,
     footerButtons = [],
-    onClose = () => {},
-    onOpen = () => {},
   } = options;
 
   const btnClose = closable
@@ -80,7 +78,7 @@ $.modal = function (options) {
       }
     },
     close() {
-      const SPEED_ANIMATION = 200;
+      const SPEED_ANIMATION = 400;
 
       $modal.classList.remove("show");
       $modal.classList.add("hide");
@@ -88,6 +86,11 @@ $.modal = function (options) {
       setTimeout(() => {
         $modal.classList.remove("hide");
         isActive = false;
+
+        if (typeof options.onClose === 'function') {
+          options.onClose()
+        }
+
       }, SPEED_ANIMATION);
     },
   };
@@ -107,6 +110,9 @@ $.modal = function (options) {
       $modal.removeEventListener("click", modalListener);
       $modal.remove();
       isDestroyed = true;
+    },
+    setTitle(text) {
+      $modal.querySelector('.c_modal-title').textContent = text;
     },
     setContent(html) {
       $modal.querySelector(".c_modal-body").innerHTML = html;
