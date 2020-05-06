@@ -46,12 +46,11 @@ function checkLengthText(text) {
 }
 
 function deleteCard(id) {
-  cards = cards.filter(card => card.id !== +id);
+      cards = cards.filter(card => card.id !== +id);
+      renderCards();
 
-  if (cards.length > 0) {
-    renderCards();
-  } else {
-    showDetailsModal.destroy();
+    if (cards.length <= 0) {
+      showModalDetails.destroy();
   }
 }
 
@@ -61,7 +60,7 @@ function createCard(cardInfo) {
   const card = document.createElement("div");
   card.className = "col-lg-4 d-flex align-items-stretch";
   card.innerHTML = `
-    <div class="card" style="width: 18rem;" data-index="${id}">
+    <div class="card" style="width: 18rem; margin: 10px auto" data-index="${id}">
       <img
         src="${img}"
         class="card-img-top"
