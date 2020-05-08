@@ -28,29 +28,29 @@ let cards = [
 ];
 
 const showModalDetails = $.modal({
-    footerButtons: [
-      {
-        text: "OK",
-        type: "outline-success",
-        size: "sm",
-        handler: () => this.close()
-      },
-    ],
+  footerButtons: [
+    {
+      text: "OK",
+      type: "outline-success",
+      size: "sm",
+      handler: () => this.close(),
+    },
+  ],
 });
 
 function checkLengthText(text) {
   const SIZE_STR = 145;
   return text.length < SIZE_STR
-      ? text
-      : text.slice(0, SIZE_STR).trimEnd() + "...";
+    ? text
+    : text.slice(0, SIZE_STR).trimEnd() + "...";
 }
 
 function deleteCard(id) {
-      cards = cards.filter(card => card.id !== +id);
-      renderCards();
+  cards = cards.filter((card) => card.id !== +id);
+  renderCards();
 
-    if (cards.length <= 0) {
-      showModalDetails.destroy();
+  if (cards.length <= 0) {
+    showModalDetails.destroy();
   }
 }
 
@@ -96,24 +96,24 @@ function renderCards() {
 
 renderCards();
 
-document.addEventListener('click', (e) => {
+document.addEventListener("click", (e) => {
   e.preventDefault();
   const btnData = e.target.getAttribute("data-btn");
   if (btnData) {
     const id = e.target.parentElement.parentElement.getAttribute("data-index");
-    const {title, text} = cards.find(cd => cd.id === +id);
+    const { title, text } = cards.find((cd) => cd.id === +id);
 
-    if (btnData === 'more-details') {
+    if (btnData === "more-details") {
       showModalDetails.setTitle(title);
       showModalDetails.setContent(text);
       showModalDetails.open();
-    } else if (btnData === 'delete-card') {
+    } else if (btnData === "delete-card") {
       $.confirm({
-        title: 'Вы уверены?',
-        content: `<p>Вы действительно хотите удалить: <strong>${title}</strong>`
+        title: "Вы уверены?",
+        content: `<p>Вы действительно хотите удалить: <strong>${title}</strong>`,
       })
-          .then(() => deleteCard(id))
-          .catch(() => console.log("Cancel"));
+        .then(() => deleteCard(id))
+        .catch(() => console.log("Cancel"));
     }
   }
-})
+});

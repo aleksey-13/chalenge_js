@@ -87,10 +87,9 @@ $.modal = function (options) {
         $modal.classList.remove("hide");
         isActive = false;
 
-        if (typeof options.onClose === 'function') {
-          options.onClose()
+        if (typeof options.onClose === "function") {
+          options.onClose();
         }
-
       }, SPEED_ANIMATION);
     },
   };
@@ -112,7 +111,7 @@ $.modal = function (options) {
       isDestroyed = true;
     },
     setTitle(text) {
-      $modal.querySelector('.c_modal-title').textContent = text;
+      $modal.querySelector(".c_modal-title").textContent = text;
     },
     setContent(html) {
       $modal.querySelector(".c_modal-body").innerHTML = html;
