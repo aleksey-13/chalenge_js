@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Select plugin</title>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="settings">
+        <h2>Действия</h2>
+        <ul id="actions">
+          <li>
+            <button data-type="open">Открыть</button>
+          </li>
+          <li>
+            <button data-type="close">Закрыть</button>
+          </li>
+          <li>
+            <button data-type="set">Выбрать 5 индекс</button>
+          </li>
+          <li>
+            <button data-type="get">Получить выбранный</button>
+          </li>
+          <li>
+            <button data-type="clear">Очистить</button>
+          </li>
+          <li>
+            <button data-type="destroy">Уничтожить</button>
+          </li>
+        </ul>
+
+        <p id="log">Выбран элемент:</p>
+      </div>
+
+      <div id="select" class="select">
+        <div class="select-field" id="select-field">
+          <span>Выбрать технологию</span>
+          <p id="selected-technology"></p>
+        </div>
+        <ul class="select-list">
+          <li class="select-item">Чебурашка</li>
+          <li class="select-item">Крокодил Гена</li>
+          <li class="select-item">Шапокляк</li>
+          <li class="select-item">Крыса Лариса</li>
+        </ul>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
