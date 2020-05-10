@@ -1,64 +1,138 @@
-/*
-class Select {}
-
-const select = new Select({
-    selector: '#select',
-    label: 'Выберите технологию',
-    url: 'https://vladilen-dev.firebaseio.com/technologies.json',
-    onSelect(selectedItem) {}
-})
-*/
+const technologies = [
+  { label: "JavaScript", id: 0 },
+  { label: "JQuery", id: 1 },
+  { label: "ReactJS", id: 2 },
+  { label: "React Native", id: 3 },
+  { label: "Angular", id: 4 },
+  { label: "VueJS", id: 5 },
+  { label: "NodeJS", id: 6 },
+  { label: "TypeScript", id: 7 },
+];
 
 const actions = document.getElementById("actions");
-const select = document.getElementById("select");
-const selectField = document.getElementById("select-field");
-const selectedTechnology = document.getElementById("selected-technology");
+const selectEl = document.getElementById("select");
+const log = document.getElementById("log");
 
-const loader = `
-    <svg 
-        xmlns="http://www.w3.org/2000/svg" 
-        xmlns:xlink="http://www.w3.org/1999/xlink" 
-        style="margin: auto; background: rgb(255, 255, 255); display: block; shape-rendering: auto;" width="50px" height="50px" 
-        viewBox="0 0 100 100" 
-        preserveAspectRatio="xMidYMid">
-        
-        <g transform="rotate(186.151 50 50)">
-            <path d="M50 15A35 35 0 1 0 74.74873734152916 25.251262658470843" fill="none" stroke="#1f76b0" stroke-width="7"></path>
-            <path d="M49 3L49 27L61 15L49 3" fill="#1f76b0"></path>
-            <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" values="0 50 50;360 50 50" keyTimes="0;1"></animateTransform>
-        </g>
-    </svg>
-`;
+let isLoading = false;
+let activeTechnology;
+
+const select = new Select({
+  selector: "select",
+  label: "Выберите технологию",
+  url: technologies,
+});
+
+function init() {
+  select.renderEmptySelect();
+}
+
+init();
+
+function open() {
+  selectEl.classList.add("active");
+
+  if (!activeTechnology) {
+    selectEl.querySelector("#select-field").classList.add("active");
+  }
+}
+
+function close() {
+  selectEl.classList.remove("active");
+
+  if (!activeTechnology) {
+    selectEl.querySelector("#select-field").classList.remove("active");
+  }
+}
+
+function showListHandler(e) {
+  const element = e.target;
+
+  if (!isLoading) {
+    select.renderListTechnologies();
+    isLoading = true;
+  }
+
+  if (element.classList.contains("select-item")) {
+    setActiveTechnology(element);
+  }
+
+  if (!element.classList.contains("select-list")) {
+    selectEl.classList.contains("active") ? close() : open();
+  }
+}
+
+selectEl.addEventListener("click", showListHandler);
+
+function setActiveTechnology(item) {
+  const selectedTechnology = selectEl.querySelector("#selected-technology");
+
+  if (activeTechnology) {
+    activeTechnology.classList.remove("active-item");
+  }
+
+  if (!item.classList.contains("active-item")) {
+    item.classList.add("active-item");
+    selectedTechnology.textContent = item.textContent;
+    selectedTechnology.style.display = "block";
+
+    selectEl.querySelector("#select-field > span").style.color = "#1f76b0";
+    log.textContent = `Выбран элемент: ${item.textContent}`;
+  }
+
+  activeTechnology = item;
+}
+
+function clearActiveTechnology() {
+  if (activeTechnology) {
+    activeTechnology.classList.remove("active-item");
+    selectEl.querySelector("#select-field").classList.remove("active");
+    selectEl.querySelector("#select-field > span").style.color = "#000";
+    selectEl.querySelector("#selected-technology").textContent = "";
+    log.textContent = "";
+    activeTechnology = null;
+  }
+}
+
+function destroySelect() {
+  actions.removeEventListener("click", setAction);
+  selectEl.removeEventListener("click", showListHandler);
+  selectEl.remove();
+}
+
+function getActiveTechnology() {
+  if (activeTechnology) {
+    const label = activeTechnology.textContent;
+    const idx = activeTechnology.getAttribute("data-index");
+
+    alert(JSON.stringify({ label, idx }));
+  } else {
+    alert("Ничего не выбрано!");
+  }
+}
 
 function setAction(e) {
-  console.log(e.target.dataset.type);
-
   switch (e.target.dataset.type) {
     case "open":
-      showList();
+      showListHandler(e);
       break;
     case "close":
-      closeList();
+      close();
+      break;
+    case "set":
+      close();
+      break;
+    case "get":
+      getActiveTechnology();
+      break;
+    case "clear":
+      clearActiveTechnology();
+      break;
+    case "destroy":
+      destroySelect();
       break;
     default:
       console.log("NaN");
   }
 }
-
-function showList() {
-  select.classList.add("active");
-}
-
-function closeList() {
-  select.classList.remove("active");
-}
-
-selectField.addEventListener("click", () => {
-  if (select.classList.contains("active")) {
-    closeList();
-  } else {
-    showList();
-  }
-});
 
 actions.addEventListener("click", setAction);

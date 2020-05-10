@@ -101,13 +101,13 @@ body {
 }
 
 .select-field p {
-    display: none;
+    /*display: none;*/
     position: absolute;
     top: 5px;
     left: 2px;
 }
 
-.select.active .select-field > span {
+.select-field.active > span {
   transform: translate(5px, -20px);
   font-size: 12px;
   color: rgba(0, 0, 0, 0.5);
