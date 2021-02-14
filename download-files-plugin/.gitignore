@@ -1,0 +1,5 @@
+/dist
+/node_modules
+/.cashe
+
+.package-lock.json
