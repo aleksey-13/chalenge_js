@@ -71,9 +71,14 @@ input[type='file'] {
     overflow: hidden;
 }
 
+.preview-image.remove {
+    transform: scale(0);
+    transition: transform 0.3s;
+}
+
 .preview-image img {
     width: 180px;
-    height: auto;
+    height: 100%;
 }
 
 .preview-remove,
@@ -115,4 +120,14 @@ input[type='file'] {
 
 .preview-image:hover .preview-info {
     bottom: 0;
+}
+
+.preview-info-progress {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #42b983;
+    text-align: center;
+    transition: width 0.22s;
 }
