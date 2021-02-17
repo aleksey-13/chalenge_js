@@ -30,7 +30,10 @@ export function upload(selector, options = {}) {
     input.insertAdjacentElement('afterend', upload)
     input.insertAdjacentElement('afterend', open)
 
-    const triggerInput = () => input.click()
+    const triggerInput = () => {
+        input.value = ''
+        input.click()
+    }
 
     const changeHandler = (event) => {
         if (!event.target.files.length) {

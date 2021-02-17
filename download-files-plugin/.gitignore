@@ -1,5 +1,5 @@
 /dist
 /node_modules
-/.cashe
+/.cache
 
 .package-lock.json

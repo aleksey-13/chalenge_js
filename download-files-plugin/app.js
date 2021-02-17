@@ -1,5 +1,5 @@
-import firebase from 'firebase/app'
-import 'firebase/storage'
+import firebase from 'firebase'
+// import 'firebase/storage'
 import { upload } from './upload'
 
 // Your web app's Firebase configuration
@@ -12,7 +12,11 @@ const firebaseConfig = {
     appId: '1:1074153524015:web:160fe3b90cb10e6ae22fda',
 }
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig)
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig)
+} else {
+    firebase.app()
+}
 
 const storage = firebase.storage()
 
